@@ -12,16 +12,18 @@ use Jiri\Student;
 class AdminController extends Controller
 {
     // Créer un evenement
-    public function createEvent(){ // a verifier (admin et event controller??)
+    public function createEvent(){
         $users = User::where('is_admin', 1)->get();
         return view('admin.createEvent')->with([
             'users' => $users ]);
     }
 
+    //PUT
     public function createdEvent(Request $request, Event $event){
         
         $event = new Event();
 
+        // 
         $event->owner()->associate(Auth::user()->id);
         $event->fill($request->all());
     
@@ -29,32 +31,10 @@ class AdminController extends Controller
 
         $event->save();
 
-    
-        // Event::insert([
-        //     "course_name" => $request->get('course_name'),
-        //     "academic_year" => $request->get('academic_year'),
-        //     "exam_session" => $request->get('exam_session'),
-        //     "user_id" => $request->get('user_id'),
-        //     // 'created_at' => \Carbon\Carbon::now(),
-        //     // 'updated_at' => \Carbon\Carbon::now()
-        // ]);
 
         return redirect()->route('admin.addJury', ['event' => $event]);
     }
 
-    //Afficher les evenemnts
-    public function showEvent(Event $event, Request $request) {
-        $apiRequest = Request::create(
-            '/api/events/'.$event->id,   // url
-            'GET'
-        );
-        $request->replace($apiRequest->input());
-        $event = Route::dispatch($apiRequest)->getOriginalContent();
-        return view()->with([
-            'event' => $event,
-            'users' => User::where('is_admin', 1)->get()
-        ]);
-    }
 
     //Modifier un evenement
     public function updatedEvent(Request $request, Event $event){
@@ -63,19 +43,6 @@ class AdminController extends Controller
         return redirect()->route('event.show');
     }
 
-    //Supprimer un evenement
-    public function deleteEvent(Event $event){
-        $event->delete();
-        //return redirect()->route(''); ??
-    }
-
-    // Etablir un horaire
-    public function createTimetable(){
-        return view('admin.timetable');
-    }
-
-    public function createdTimetable(){
-    }
 
     // Ajouter des jury
     public function addJury(Event $event){
@@ -85,6 +52,7 @@ class AdminController extends Controller
         ]);
     }
 
+    // PUT
     public function addingJury( Request $request, Event $event ){
         
         $user = User::where('email', $request->get('email'))->limit(1);

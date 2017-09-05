@@ -29,9 +29,7 @@ class DashboardController extends Controller{
             $request->replace($apiRequest->input());
             $event = Route::dispatch($apiRequest)->getOriginalContent();
         
-        } else {
-
-        }
+        } 
 
         $meetings = Auth::user()
                         ->meetings()->where('event_id', $event->id)
@@ -41,8 +39,5 @@ class DashboardController extends Controller{
         return view("admin.dashboard", compact('event', 'meetings'));
     }
 
-    public function main(Request $request){
-
-    }
 }
 

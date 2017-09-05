@@ -26,23 +26,6 @@ Route::get('resetPassword', function() {
 });
 
 
-// Test : affichage + modification d'un user
-
-// Route::get('/users/{user}', [
-//     'as' => 'users.show',
-//     'uses' => 'UserController@show'
-// ]);
-
-// Route::get('users/{user}/edit', [
-//     'as' => 'users.edit',
-//     'uses' => 'UserController@edit'
-// ]);
-
-// Route::put('users/{user}', [
-//     'as' => 'users.update',
-//     'uses' => 'UserController@update'
-// ]);
-
 
 // Dashboard 
 

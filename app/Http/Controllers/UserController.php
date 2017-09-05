@@ -13,15 +13,6 @@ class UserController extends Controller
         return view('users.show', [ "user" => $user ]); //organisation des vues .
     }
 
-    // Editer les users
-    public function edit(User $user){
-        return view('users.edit', [ "user" => $user]);
-    }
-
-    public function update(Request $request, User $user){
-        dd($request->get("name"));
-    }
-
     // Afficher l'horaire des users
     public function showTimetable(Meeting $meeting){
         return view('users.timetable', ["meeting" => $meeting]);    

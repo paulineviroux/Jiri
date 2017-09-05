@@ -21,8 +21,9 @@ class EventController extends Controller{
         } else {
             
             $meetings = $user->meetings()
-                            ->select('event_id')
-                            ->distinct('event_id')
+                            // Selection de event_id de manière unique
+                            ->select('event_id')->distinct('event_id')
+                            // On récupere les events dont l'id est dans la liste des event_id ci dessus
                             ->with('event')
                             ->get();
 
@@ -33,5 +34,5 @@ class EventController extends Controller{
 
         return view("event.show", compact('user', 'events'));
     }
-
+    
 }
